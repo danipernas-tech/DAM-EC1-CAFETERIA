@@ -58,7 +58,7 @@ public class Producto implements Descontable {
      */
     public void setPrecio(double precio) {
         if (precio < 0) {
-            this.precio = 0;
+            throw new IllegalArgumentException("El precio no puede ser negativo");
         } else {
             this.precio = precio;
         }

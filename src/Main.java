@@ -96,6 +96,9 @@ public class Main {
                     demostrarColaPedidos(camarero, catalogo);
                     break;
 
+                case 11:
+                    demostrarPrecioNegativo();
+                    break;
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
                         System.out.println("ATENCIÓN: el ticket actual tiene productos "
@@ -134,6 +137,7 @@ public class Main {
         System.out.println("8. Eliminar producto del ticket");
         System.out.println("9. Ver productos por categoria");
         System.out.println("10. Demostrar cola de pedidos");
+        System.out.println("11. Demostrar precio negativo");
         System.out.println("0. Salir");
         System.out.println("================================");
     }
@@ -308,10 +312,28 @@ public class Main {
         Ticket atendido = pedidos.poll();
         System.out.println("Atendiendo ticket: ");
         atendido.mostrarTicket();
+        System.out.println("Tickets pendientes: " + pedidos.size());
 
+        pedidos.poll();
+        pedidos.poll();
+        System.out.println("Tickets pendientes: " + pedidos.size());
 
+        Ticket siguiente = pedidos.poll();
+        if (siguiente == null){
+            System.out.println("No hay tickets pendientes");
+        }else {
+            siguiente.mostrarTicket();
+        }
 
+    }
 
+    private static void demostrarPrecioNegativo(){
+        try{
+            Producto producto = new Producto("Producto", -2.5, "Dulce", 10);
+            System.out.println("Producto creado: " + producto.getNombre());
+        }catch (IllegalArgumentException e){
+            System.out.println("Error al crear el producto: " + e.getMessage());
+        }
     }
 
 

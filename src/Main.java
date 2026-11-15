@@ -85,6 +85,10 @@ public class Main {
                     gestorTickets.mostrarTicketsGuardados();
                     break;
 
+                case 8:
+                    eliminarProductoTicket(teclado, ticketActual);
+                    break;
+
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
                         System.out.println("ATENCIÓN: el ticket actual tiene productos "
@@ -120,6 +124,7 @@ public class Main {
         System.out.println("5. Consultar total actual");
         System.out.println("6. Finalizar y guardar ticket");
         System.out.println("7. Ver tickets guardados");
+        System.out.println("8. Eliminar producto del ticket");
         System.out.println("0. Salir");
         System.out.println("================================");
     }
@@ -230,6 +235,24 @@ public class Main {
         System.out.printf("Precio original: %.2f €%n", producto.getPrecio());
         System.out.printf("Descuento aplicado: %.2f%%%n", porcentaje);
         System.out.printf("Precio con descuento: %.2f €%n", precioConDescuento);
+    }
+
+    private static void eliminarProductoTicket(Scanner teclado, Ticket ticketActual){
+        if (ticketActual.getContadorProductos() == 0) {
+            System.out.println("No hay productos en el ticket.");
+            return;
+        }
+
+        ticketActual.mostrarTicket();
+        int posicion = leerEntero(teclado,
+                "Introduce el número de producto que quieres eliminar: ");
+
+        if (ticketActual.eliminarProducto(posicion)) {
+            // mensaje de éxito
+        } else {
+            // mensaje de error
+        }
+
     }
 
     private static int leerEntero(Scanner teclado, String mensaje) {

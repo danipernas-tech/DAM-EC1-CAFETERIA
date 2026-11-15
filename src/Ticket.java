@@ -81,6 +81,15 @@ public class Ticket {
         return true;
     }
 
+    public boolean eliminarProducto(int posicion){
+        if (posicion < 1 || posicion > productos.size()){
+            return false;
+        }
+        productos.remove(posicion - 1);
+        cantidades.remove(posicion - 1);
+        return true;
+    }
+
     /**
      * Recorre el array con un bucle y suma los precios de los productos
      * realmente añadidos al ticket.

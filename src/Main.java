@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -89,6 +91,10 @@ public class Main {
                     eliminarProductoTicket(teclado, ticketActual);
                     break;
 
+                case 9:
+                    mostrarProductosCategoria(catalogo);
+                    break;
+
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
                         System.out.println("ATENCIÓN: el ticket actual tiene productos "
@@ -125,6 +131,7 @@ public class Main {
         System.out.println("6. Finalizar y guardar ticket");
         System.out.println("7. Ver tickets guardados");
         System.out.println("8. Eliminar producto del ticket");
+        System.out.println("9. Ver productos por categoria");
         System.out.println("0. Salir");
         System.out.println("================================");
     }
@@ -248,12 +255,36 @@ public class Main {
                 "Introduce el número de producto que quieres eliminar: ");
 
         if (ticketActual.eliminarProducto(posicion)) {
-            // mensaje de éxito
+            System.out.println("Producto eliminado del ticket");
         } else {
-            // mensaje de error
+            System.out.println("El producto seleccionado no existe en el ticket");
         }
 
     }
+
+    private static void mostrarProductosCategoria(Producto[] catalogo){
+        HashMap<String, ArrayList<Producto>> categorias = new HashMap<>();
+
+        for (Producto producto : catalogo) {
+            String categoria = producto.getCategoria();
+
+            if (!categorias.containsKey(categoria)) {
+                categorias.put(categoria, new ArrayList<>());
+            }
+
+            categorias.get(categoria).add(producto);
+
+        }
+
+        for (Map.Entry<String, ArrayList<Producto>> entrada : categorias.entrySet()) {
+            System.out.println(entrada.getKey());
+            for (Producto producto : entrada.getValue()) {
+                System.out.println(producto.mostrarInformacion());
+            }
+
+            }
+    }
+
 
     private static int leerEntero(Scanner teclado, String mensaje) {
         while (true) {

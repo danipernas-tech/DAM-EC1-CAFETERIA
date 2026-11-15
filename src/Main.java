@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Clase principal del programa.
@@ -95,6 +92,10 @@ public class Main {
                     mostrarProductosCategoria(catalogo);
                     break;
 
+                case 10:
+                    demostrarColaPedidos(camarero, catalogo);
+                    break;
+
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
                         System.out.println("ATENCIÓN: el ticket actual tiene productos "
@@ -132,6 +133,7 @@ public class Main {
         System.out.println("7. Ver tickets guardados");
         System.out.println("8. Eliminar producto del ticket");
         System.out.println("9. Ver productos por categoria");
+        System.out.println("10. Demostrar cola de pedidos");
         System.out.println("0. Salir");
         System.out.println("================================");
     }
@@ -283,6 +285,33 @@ public class Main {
             }
 
             }
+    }
+
+    private static void demostrarColaPedidos(Camarero camarero, Producto[] catalogo){
+        Queue<Ticket> pedidos = new LinkedList<>();
+
+        Cliente cliente1 = new Cliente("Dani", "600885323");
+        Ticket ticket1 = new Ticket(cliente1, camarero, 10);
+        ticket1.agregarProducto(catalogo[0],1);
+        pedidos.offer(ticket1);
+
+        Cliente cliente2 = new Cliente("Carlos", "695685323");
+        Ticket ticket2 = new Ticket(cliente2, camarero, 10);
+        ticket2.agregarProducto(catalogo[1],1);
+        pedidos.offer(ticket2);
+
+        Cliente cliente3 = new Cliente("Alberto", "611885777");
+        Ticket ticket3 = new Ticket(cliente3, camarero, 10);
+        ticket3.agregarProducto(catalogo[2],1);
+        pedidos.offer(ticket3);
+
+        Ticket atendido = pedidos.poll();
+        System.out.println("Atendiendo ticket: ");
+        atendido.mostrarTicket();
+
+
+
+
     }
 
 

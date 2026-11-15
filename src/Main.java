@@ -99,6 +99,10 @@ public class Main {
                 case 11:
                     demostrarPrecioNegativo();
                     break;
+
+                case 12:
+                    gestorTickets.exportarJSON(ticketActual);
+                    break;
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
                         System.out.println("ATENCIÓN: el ticket actual tiene productos "
@@ -138,6 +142,7 @@ public class Main {
         System.out.println("9. Ver productos por categoria");
         System.out.println("10. Demostrar cola de pedidos");
         System.out.println("11. Demostrar precio negativo");
+        System.out.println("12. Exportar JSON");
         System.out.println("0. Salir");
         System.out.println("================================");
     }

@@ -1,9 +1,13 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.runtime.ObjectMethods;
+import java.util.ArrayList;
 
 /**
  * Se encarga de guardar y consultar los tickets finalizados.
@@ -65,6 +69,27 @@ public class GestorTickets {
 
         } catch (IOException e) {
             System.out.println("Error al leer los tickets: " + e.getMessage());
+        }
+    }
+
+    public void exportarJSON(Ticket ticket) {
+        // 1. Convertir los productos del ticket a ProductoJSON
+        ArrayList<ProductoJSON> productoJSONS = new ArrayList<>();
+        for ( Producto producto : ticket.getProductos()){
+            productoJSONS.add(new ProductoJSON(producto.getNombre(), producto.getPrecio()));
+        }
+        // 2. Crear el TicketJSON
+        double total = Math.round(ticket.calcularTotal()*100) / 100.0;
+
+        TicketJSON ticketJSON = new TicketJSON(ticket.getCliente().getNombre(), ticket.getCamarero().getNombre(), productoJSONS, total);
+        // 3. Escribirlo en ticket.json con Jackson (try-catch)
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File("ticket.json"), ticketJSON);
+            System.out.println("Ticket exportado a JSON");
+        }catch (IOException e){
+            System.out.println("Error al exportar el ticket: " + e.getMessage());
         }
     }
 }
